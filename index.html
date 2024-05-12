@@ -224,16 +224,18 @@
                 </div>
             </div>
         </div>
-        <div id="modal_products" class="modal__product">
-            <div class="modal__product_content">
-                
-                <span class="close-product" onclick="closeProductsModal()">&times;</span>
-                <div class="products__list">
-                    <ul id="productList"></ul>
+        <div id="modal__productBackdrop" class="modal__productBackdrop">
+            <div id="modal_products" class="modal__product">
+                <div class="button__close">
+                    <span class="close-product" onclick="closeProductsModal()">&times;</span>
                 </div>
-                <p class="modal-info" id="information">
-                </p>
-                <!-- <button id="deleteButton" class="deleteButton" onclick="deleteProduct()"></button> -->
+                <div class="modal__product_content">             
+                    <div class="products__list">
+                        <ul id="productList"></ul>
+                    </div>
+                    <p class="modal-info" id="information">
+                    </p>
+                </div>
             </div>
         </div>
     </div>

@@ -170,9 +170,9 @@ function updateTotalCaloriesDisplay(totalCalories) {
 
 
 function openProductsModal(mealType) {
-    document.getElementById("modal_products").style.display = "block";
+    document.getElementById("modal__productBackdrop").style.display = "block";
     console.log('Meal type in openProductsModal:', mealType);
-    fetch(`http://localhost:3000/products?mealtype=${mealType}`)
+    fetch(`http://localhost:3000/products?mealtype=${mealType}&username=${localStorage.getItem('username')}`)
         .then(response => response.json())
         .then(data => {
             console.log('Data received from server:', data);
@@ -189,13 +189,27 @@ function openProductsModal(mealType) {
             } else {
                 data.Data.forEach(product => {
                     const li = document.createElement("li");
-                    li.textContent = `${product.name} - ${product.calories.toFixed(1)} ккал, ${product.protein.toFixed(1)} г белков, ${product.fat.toFixed(1)} г жиров, ${product.carbohydrates.toFixed(1)} г углеводов (${product.grams.toFixed(1)} г)`;
+
+                    const productInfo = document.createElement("div");
+                    productInfo.classList.add("productInfo");
+
+                    const productName = document.createElement("h3");
+                    productName.textContent = `${product.name} - ${product.grams.toFixed(1)} г`;
+
+                    const macronutrients = document.createElement("div");
+                    macronutrients.textContent = `${product.calories.toFixed(0)} ккал, белки: ${product.protein.toFixed(1)} г, жиры: ${product.fat.toFixed(1)} г, угл.: ${product.carbohydrates.toFixed(1)} г`;
+                    macronutrients.classList.add("macronutrients");
+
                     const deleteButton = document.createElement("button");
                     deleteButton.textContent = "Удалить";
                     deleteButton.classList.add("deleteButton");
                     deleteButton.onclick = function() {
                         deleteProduct(product.id, mealType);
                     };
+
+                    productInfo.appendChild(productName);
+                    productInfo.appendChild(macronutrients);
+                    li.appendChild(productInfo);
                     li.appendChild(deleteButton);
                     productList.appendChild(li);
                 });
@@ -207,8 +221,11 @@ function openProductsModal(mealType) {
 
 
 
+
+
+
 function deleteProduct(productId, mealType) {
-    fetch(`http://localhost:3000/products?id=${productId}`, {
+    fetch(`http://localhost:3000/products?id=${productId}&username=${localStorage.getItem('username')}`, {
         method: 'DELETE',
     })
     .then(response => {
@@ -227,11 +244,10 @@ function deleteProduct(productId, mealType) {
 
 
 function closeProductsModal() {
-    var modal = document.getElementById("modal_products");
+    var modal = document.getElementById("modal__productBackdrop");
     const productList = document.getElementById("productList");
     productList.innerHTML = "";
     modal.style.display = "none";
-
 }
 
 function submitUsername() {
@@ -269,6 +285,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     loadData();
     const savedTotalCalories = JSON.parse(localStorage.getItem('totalCalories'));
+    
     if (savedTotalCalories) {
         updateTotalCaloriesDisplay(savedTotalCalories);
     } else {
@@ -443,7 +460,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(productData)
+                body: JSON.stringify({username:localStorage.getItem('username'), product:productData})
             })
             .then(response => {
                 if (!response.ok) {
@@ -468,3 +485,4 @@ document.addEventListener("DOMContentLoaded", function() {
         destItem.scrollIntoView({ behavior: 'smooth' });
     });
 });
+
