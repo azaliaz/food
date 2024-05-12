@@ -220,6 +220,7 @@ function deleteProduct(productId, mealType) {
     .then(data => {
         console.log('Продукт успешно удален:', data);
         openProductsModal(mealType);
+        updateTotalCaloriesDisplay(data.totalCalories);
     })
     .catch(error => console.error('Ошибка при удалении продукта:', error));
 }
