@@ -34,19 +34,16 @@ body {
     align-items: center;
 }
 .modal__product {
-	/* display: none; */
 	position: fixed;
-	/* z-index: 1; */
-	/* transform: translate(-50%, -50%); */
 	width: 430px;
 	height: 478px;
 	background-color: white;
 	border: 1px solid #ccc;
 	border-radius: 30px;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-	top: 50%; /* Размещаем верхний край модального окна в середине экрана по вертикали */
-    left: 50%; /* Размещаем левый край модального окна в середине экрана по горизонтали */
-    transform: translate(-50%, -50%); /* Сдвигаем модальное окно на половину его ширины и высоты назад, чтобы оно оказалось точно по центру */
+	top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
     background-color: white;
     z-index: 1000;
 }
@@ -120,7 +117,7 @@ body {
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 10px;
-    position: relative; 
+    position: relative; /* Позиционирование для кнопки */
 }
 
 .productInfo {
@@ -129,7 +126,6 @@ body {
 }
 
 .macronutrients {
-    text-align: center;
 	margin: 10px auto;
 }
 
@@ -252,13 +248,17 @@ input[type="number"] {
 	margin-top: 20px;
 	justify-content: space-between;
 	margin-left: 50px;
+	align-items: center;
 }
 .info-display {
 	margin-top: 15px;
 	display: flex;
 	margin-right: 40px;
 }
-
+.info-displayNutr {
+	margin-top: 1px;
+	margin-left: 6px;
+}
 * {
 	box-sizing: border-box;
 }
