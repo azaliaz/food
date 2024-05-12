@@ -233,10 +233,29 @@ function closeProductsModal() {
 
 }
 
+function submitUsername() {
+    const usernameInput = document.getElementById('usernameInput');
+    const username = usernameInput.value.trim();
+    if (username !== '') {
+        localStorage.setItem('username', username);
+        document.querySelector('.username__form').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+    } else {
+        alert('Пожалуйста, введите имя пользователя.');
+    }
+}
+
+window.addEventListener('load', function() {
+    const savedUsername = localStorage.getItem('username');
+    if (savedUsername) {
+        const usernameInput = document.getElementById('usernameInput');
+        usernameInput.value = savedUsername;
+    }
+});
 
 document.addEventListener("DOMContentLoaded", function() {
     console.log('Событие DOMContentLoaded сработало.');
-
+    const savedUsername = localStorage.getItem('username');
     function loadData() {
         fetch('data.json')
             .then(response => response.json())
